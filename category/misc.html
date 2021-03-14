@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Recently I learned - misc</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Recently I learned</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/misc.html">misc</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/how-to-use-assertions-in-regular-expression.html">How to use assertions in Regular Expression</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2021-03-14T10:00:00+01:00">
+                Published: Sun 14 March 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+
+</footer><!-- /.post-info --><p>An assertion in Regular Expression returns the result without consuming up the characters in the string. That is the reason it is called assertion, which returns match or no match.</p>
+<p>The assertions can be positive lookahead and positive lookbehind.</p>
+<h1>Positive Lookahead</h1>
+<p><code>regex_1(?=regex_2)</code></p>
+<p>The positive lookahead (?=) asserts that regex_1 is immediately followed by regex_2.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># E.g., find the occurrence of &quot;t&quot; followed immediately by &quot;o&quot;</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;t(?=o)&quot;</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;potato&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(4, 5), match=&#39;t&#39;&gt;</span>
+</code></pre></div>
+
+
+<h1>Negative Lookahead</h1>
+<p><code>regex_1(?!regex_2)</code></p>
+<p>The negative lookahead (?=) asserts that regex_1 is <em>NOT</em> immediately followed by regex_2</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># E.g., find the &quot;p&quot; that is not followed immediately by &quot;p&quot;.</span>
+
+<span class="c1"># \1 means the first captured group</span>
+<span class="c1"># that is, a backreference which will be translated into the same character found in (p), that is, &quot;p&quot;.</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(p)(?!\1)&quot;</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(2, 3), match=&#39;p&#39;&gt;</span>
+</code></pre></div>
+
+
+<h1>Positive Lookbehind</h1>
+<p><code>(?&lt;=regex_2)regex_1</code></p>
+<p>The positive lookbehind (?&lt;=) asserts that regex_1 is immediately preceded by regex_2</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># E.g., find the digit which are immediately preceded by odd digit.</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;(?&lt;=[13579])[\d]&quot;</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;0123&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(2, 3), match=&#39;2&#39;&gt;</span>
+</code></pre></div>
+
+
+<h1>Negative Lookbehind</h1>
+<p>(?&lt;!regex_2)regex_1</p>
+<p>The positive lookbehind (?&lt;!) asserts that regex_1 is <em>NOT</em> immediately preceded by regex_2</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># E.g., find the character which is not immediately preceded by vowels (a, e, i, u, o, A, E, I, O, U).</span>
+<span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^.(?&lt;![aeiouAEIOU]).&quot;</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 1), match=&#39;a&#39;&gt;</span>
+</code></pre></div>
+
+
+<h1>Usage</h1>
+<p>Suppose we need find all cloud architects whose expertise is AWS from a list as follows. The key word "AWS" can be either before or after "Cloud Architect" but not in-between. We can use positive lookaheads to assert that the phrase matches "AWS" in either order, and the pattern is <code>r'^(?=.*AWS).*Cloud Architect.*$'</code>.</p>
+<p>The <code>.*</code> in the lookahead <code>(?=.*AWS)</code> catches "Cloud Architect" and matches the condition "Cloud Architect", so "Cloud Architect AWS" can be found.</p>
+<div class="highlight"><pre><span></span><code><span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AWS Cloud Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;Azure Cloud Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;Cloud Architect AWS&quot;</span><span class="p">,</span> <span class="s2">&quot;Cloud AWS Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;AWS Cloud Sales&quot;</span><span class="p">]</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?=.*AWS).*Cloud Architect.*$&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">titles</span><span class="p">:</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 19), match=&#39;AWS Cloud Architect&#39;&gt;</span>
+<span class="c1"># None</span>
+<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 19), match=&#39;Cloud Architect AWS&#39;&gt;</span>
+<span class="c1"># None</span>
+<span class="c1"># None</span>
+</code></pre></div>
+
+
+<h1>References</h1>
+<ol>
+<li>https://www.regular-expressions.info/lookaround.html</li>
+<li>https://www.hackerrank.com/domains/regex?filters%5Bsubdomains%5D%5B%5D=assertions</li>
+<li>https://stackoverflow.com/questions/4389644/regex-to-match-string-containing-two-names-in-any-order</li>
+</ol>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/how-to-use-pelican-on-github-page.html" rel="bookmark"
+                           title="Permalink to How to use Pelican on Github Page">How to use Pelican on Github Page</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-03-01T22:00:00+01:00">
+                Published: Mon 01 March 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+
+</footer><!-- /.post-info -->                <p>This post shows how to set up a blog with Pelican and Github Page</p>
+                <a class="readmore" href="/how-to-use-pelican-on-github-page.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/connect-python-with-mysql-docker-container.html" rel="bookmark"
+                           title="Permalink to "Connect Python with MySQL Docker Container"">"Connect Python with MySQL Docker Container"</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-12-27T10:51:51+01:00">
+                Published: Fri 27 December 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/docker.html">Docker</a> <a href="/tag/python.html">Python</a> <a href="/tag/mysql.html">MySQL</a> </p>
+</footer><!-- /.post-info -->                <p>This post demonstrates how to connect Python with MySQL (8.0) in Docker container using mysql-connector-python.</p>
+                <a class="readmore" href="/connect-python-with-mysql-docker-container.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

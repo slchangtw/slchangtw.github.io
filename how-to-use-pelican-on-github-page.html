@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>How to use Pelican on Github Page</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="This post shows how to set up a blog with Pelican and Github Page" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Recently I learned</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/misc.html">misc</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/how-to-use-pelican-on-github-page.html" rel="bookmark"
+           title="Permalink to How to use Pelican on Github Page">How to use Pelican on Github Page</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-03-01T22:00:00+01:00">
+                Published: Mon 01 March 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+
+</footer><!-- /.post-info -->      <div class="highlight"><pre><span></span><code><span class="c1"># in the terminal, create a virtual environment </span>
+$ python -m venv .venv
+<span class="c1"># activate the virtual environment</span>
+$ <span class="nb">source</span> .venv/bin/activate
+<span class="c1"># install pelican</span>
+$ <span class="o">(</span>.venv<span class="o">)</span> pip install pelican ghp-import
+<span class="c1"># create a skeleton project</span>
+$ pelican-quickstart
+</code></pre></div>
+
+
+<p>The posts are located in the <code>content</code> folder of the skeleton project. The post can be in the format of either <code>.rst</code> or <code>.md</code>. Create a file <code>example.md</code> in this folder and the content is shown below.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">title</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span><span class="o">:</span><span class="mi">20</span>
+<span class="n">Modified</span><span class="o">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span> <span class="mi">19</span><span class="o">:</span><span class="mi">30</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">Python</span>
+<span class="n">Authors</span><span class="o">:</span> <span class="n">John</span> <span class="n">Doe</span>
+<span class="n">Summary</span><span class="o">:</span> <span class="n">Short</span> <span class="n">version</span> <span class="k">for</span> <span class="n">index</span> <span class="n">and</span> <span class="n">feeds</span>
+
+<span class="n">This</span> <span class="k">is</span> <span class="n">the</span> <span class="n">content</span> <span class="n">of</span> <span class="n">my</span> <span class="n">blog</span> <span class="n">post</span><span class="o">.</span>
+</code></pre></div>
+
+
+<p>We can convert the content into HTML via the pelican command and launch a simple web server at <code>http://localhost:8000/</code> to preview the site.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># convert the content into HTML</span>
+$ pelican content -o output -s pelicanconf.py
+<span class="c1"># launch a local server</span>
+$ <span class="nb">cd</span> output
+$ python -m http.server
+</code></pre></div>
+
+
+<p>To publish the site on Github page, we have to create a repository <code>&lt;your username&gt;.github.io</code> on Github. With the help of the package <code>ghp-import</code>, we can easily push the content to Github by the running:</p>
+<div class="highlight"><pre><span></span><code>$ ghp-import output -b gh-pages
+$ git push git@github.com:&lt;your username&gt;/&lt;your username&gt;.github.io.git gh-pages:master
+</code></pre></div>
+
+
+<p>In the end, the website can be seen at <code>https://&lt;your username&gt;.github.io</code></p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

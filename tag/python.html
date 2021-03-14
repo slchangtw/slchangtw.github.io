@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Recently I learned - Python</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Recently I learned</a></h1>
+                <nav><ul>
+                    <li><a href="/category/misc.html">misc</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/connect-python-with-mysql-docker-container.html">"Connect Python with MySQL Docker Container"</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2019-12-27T10:51:51+01:00">
+                Published: Fri 27 December 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
+        </address>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/docker.html">Docker</a> <a href="/tag/python.html">Python</a> <a href="/tag/mysql.html">MySQL</a> </p>
+</footer><!-- /.post-info --><h1>Version</h1>
+<ul>
+<li>Python 3.7.5</li>
+<li>Docker 19.03.5</li>
+<li>MySQL 8.0</li>
+<li>mysql-connector-python 8.0.18 (NOT mysql-connector) </li>
+</ul>
+<h1>Steps</h1>
+<h2>Download MySQL image and build a MySQL Docker container</h2>
+<p>In the terminal, run the command to download MySQL (8.0) Docker image.</p>
+<div class="highlight"><pre><span></span><code>$ docker pull mysql:8.0
+</code></pre></div>
+
+
+<p>Run the command below to build a new MySQL Docker container. <code>-p 127.0.0.1:3306:3306</code> maps the port 3306 of localhost to the port 3306 in the container. <code>-e</code> sets up the environment variables, which include the root password, a new user account, its password and a new database under this account.<code>--name</code> gives the name for this container. <code>-d</code> means the container runs as a daemon. </p>
+<div class="highlight"><pre><span></span><code>$ docker run -p <span class="m">127</span>.0.0.1:3306:3306 <span class="se">\</span>
+-e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>root
+-e <span class="nv">MYSQL_USER</span><span class="o">=</span>user_1 <span class="se">\</span>
+-e <span class="nv">MYSQL_PASSWORD</span><span class="o">=</span>user_1 <span class="se">\</span>
+-e <span class="nv">MYSQL_DATABASE</span><span class="o">=</span><span class="nb">test</span> <span class="se">\</span>
+--name mysql_python <span class="se">\</span>
+-d mysql:8.0
+</code></pre></div>
+
+
+<h2>Connect Python with the MySQL Docker container</h2>
+<p>First, create a <code>connect</code> object by specifying the database information to the parameters of mysql.connector.connect(). If the object is successfully created, the relevant information is then printed. </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">mysql.connector</span>
+
+<span class="n">cnx</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;user_1&#39;</span><span class="p">,</span> 
+                              <span class="n">password</span><span class="o">=</span><span class="s1">&#39;user_1&#39;</span><span class="p">,</span>
+                              <span class="n">database</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
+                              <span class="n">host</span><span class="o">=</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> 
+                              <span class="n">auth_plugin</span><span class="o">=</span><span class="s1">&#39;mysql_native_password&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">cnx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">():</span>
+    <span class="n">db_Info</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">get_server_info</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Connected to MySQL Server version &quot;</span><span class="p">,</span> <span class="n">db_Info</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">cnx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select database();&quot;</span><span class="p">)</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You&#39;re connected to database: &quot;</span><span class="p">,</span> <span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+
+
+<h2>Stop and Restart the container</h2>
+<div class="highlight"><pre><span></span><code>$ docker stop mysql_python
+
+$ docker start mysql_python
+</code></pre></div>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
