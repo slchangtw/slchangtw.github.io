@@ -47,11 +47,11 @@
       <aside id="featured" class="body">
         <article>
           <h1 class="title">
-            <a href="/how-to-use-assertions-in-regular-expression.html">How to use assertions in Regular Expression</a>
+            <a href="/how-to-use-named-groups-in-regular-expression.html">How to use named groups in Regular Expression</a>
           </h1>
 <footer class="post-info">
-  <abbr class="published" title="2021-03-14T10:00:00+01:00">
-    Published <span class="is-info">Sun 14 March 2021</span>
+  <abbr class="published" title="2021-03-21T21:00:00+01:00">
+    Published <span class="is-info">Sun 21 March 2021</span>
     in <a href="/category/python.html">Python</a>
   </abbr>
 
@@ -64,83 +64,43 @@
     </p>
   
 </footer>          <div class="section">
-              <p>An assertion in Regular Expression returns the result without consuming up the characters in the string. That is the reason it is called assertion, which returns match or no match.</p>
-<p>The assertions can be positive lookahead and positive lookbehind.</p>
-<h1>Positive Lookahead</h1>
-<p><code>regex_1(?=regex_2)</code></p>
-<p>The positive lookahead (?=) asserts that regex_1 is immediately followed by regex_2.</p>
+              <p>A regular expression can have named groups. This property helps us to retrieve the groups easily with <code>match()</code>.</p>
+<h1>Named Groups</h1>
+<p><code>?P&lt;name&gt;pattern</code></p>
+<p>The pattern, if matched, is then named as <code>name</code>. For example, if we want to extract the language and level from the text <code>erman C1\nEnglish B2</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
 
-<span class="c1"># E.g., find the occurrence of &quot;t&quot; followed immediately by &quot;o&quot;</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;t(?=o)&quot;</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;German C1</span><span class="se">\n</span><span class="s2">English B2&quot;</span>
 
-<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;potato&quot;</span><span class="p">)</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(4, 5), match=&#39;t&#39;&gt;</span>
+<span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(?P&lt;lang&gt;\w+)\W+(?P&lt;level&gt;\w+)&quot;</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Language: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;lang&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">, Level: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1"># Language: German, Level: C1</span>
+<span class="c1"># Language: English, Level: B2</span>
 </code></pre></div>
 
 
-<h1>Negative Lookahead</h1>
-<p><code>regex_1(?!regex_2)</code></p>
-<p>The negative lookahead (?=) asserts that regex_1 is <em>NOT</em> immediately followed by regex_2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="c1"># E.g., find the &quot;p&quot; that is not followed immediately by &quot;p&quot;.</span>
-
-<span class="c1"># \1 means the first captured group</span>
-<span class="c1"># that is, a backreference which will be translated into the same character found in (p), that is, &quot;p&quot;.</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;(p)(?!\1)&quot;</span>
-
-<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">)</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(2, 3), match=&#39;p&#39;&gt;</span>
+<p>By doing so, the level and the language can be print in a flexible manner.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;lang&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </code></pre></div>
 
 
-<h1>Positive Lookbehind</h1>
-<p><code>(?&lt;=regex_2)regex_1</code></p>
-<p>The positive lookbehind (?&lt;=) asserts that regex_1 is immediately preceded by regex_2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="c1"># E.g., find the digit which are immediately preceded by odd digit.</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;(?&lt;=[13579])[\d]&quot;</span>
-
-<span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s2">&quot;0123&quot;</span><span class="p">)</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(2, 3), match=&#39;2&#39;&gt;</span>
+<p>Also, the named groups can fill a dictionary by <code>groupdict()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># convert the match into a dict</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="c1"># {&#39;lang&#39;: &#39;German&#39;, &#39;level&#39;: &#39;C1&#39;}</span>
+<span class="c1"># {&#39;lang&#39;: &#39;English&#39;, &#39;level&#39;: &#39;B2&#39;}</span>
 </code></pre></div>
 
 
-<h1>Negative Lookbehind</h1>
-<p><code>(?&lt;!regex_2)regex_1</code></p>
-<p>The positive lookbehind (?&lt;!) asserts that regex_1 is <em>NOT</em> immediately preceded by regex_2</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="c1"># E.g., find the character which is not immediately preceded by vowels (a, e, i, u, o, A, E, I, O, U).</span>
-<span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;^.(?&lt;![aeiouAEIOU]).&quot;</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 1), match=&#39;a&#39;&gt;</span>
-</code></pre></div>
-
-
-<h1>Usage</h1>
-<p>Suppose we need find all cloud architects whose expertise is AWS from a list as follows. The key word "AWS" can be either before or after "Cloud Architect" but not in-between. We can use positive lookaheads to assert that the phrase matches "AWS" in either order, and the pattern is <code>r'^(?=.*AWS).*Cloud Architect.*$'</code>.</p>
-<p>The <code>.*</code> in the lookahead <code>(?=.*AWS)</code> catches "Cloud Architect" and matches the condition "Cloud Architect", so "Cloud Architect AWS" can be found.</p>
-<div class="highlight"><pre><span></span><code><span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AWS Cloud Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;Azure Cloud Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;Cloud Architect AWS&quot;</span><span class="p">,</span> <span class="s2">&quot;Cloud AWS Architect&quot;</span><span class="p">,</span> <span class="s2">&quot;AWS Cloud Sales&quot;</span><span class="p">]</span>
-
-<span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?=.*AWS).*Cloud Architect.*$&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">titles</span><span class="p">:</span> 
-    <span class="nb">print</span><span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">title</span><span class="p">))</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 19), match=&#39;AWS Cloud Architect&#39;&gt;</span>
-<span class="c1"># None</span>
-<span class="c1"># &lt;_sre.SRE_Match object; span=(0, 19), match=&#39;Cloud Architect AWS&#39;&gt;</span>
-<span class="c1"># None</span>
-<span class="c1"># None</span>
-</code></pre></div>
-
-
-<h1>References</h1>
+<h1>Reference</h1>
 <ol>
-<li>https://www.regular-expressions.info/lookaround.html</li>
-<li>https://www.hackerrank.com/domains/regex?filters%5Bsubdomains%5D%5B%5D=assertions</li>
-<li>https://stackoverflow.com/questions/4389644/regex-to-match-string-containing-two-names-in-any-order</li>
+<li><a href="https://docs.python.org/3/library/re.html#re.Match.groupdict">https://docs.python.org/3/library/re.html#re.Match.groupdict</a></li>
 </ol>
           </div>
         </article>
@@ -148,6 +108,17 @@
   <div class="is-hidden-print">
     <h2 class="subtitle">Other articles</h2>
     <div class="columns is-multiline">
+        <div class="column is-half-tablet is-one-third-desktop">
+          <div class="card is-fullwidth is-fullheight">
+            <div class="card-content">
+              <a href="/how-to-use-assertions-in-regular-expression.html">
+                <h3 class="title is-5">How to use assertions in Regular Expression</h3>
+                <div class="heading subtitle">Sun 14 March 2021</div>
+                <div><p>An assertion in Regular Expression returns the result without consuming up the characters in the string. That...<br /></p></div>
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="column is-half-tablet is-one-third-desktop">
           <div class="card is-fullwidth is-fullheight">
             <div class="card-content">
