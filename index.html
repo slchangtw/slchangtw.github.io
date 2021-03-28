@@ -47,11 +47,11 @@
       <aside id="featured" class="body">
         <article>
           <h1 class="title">
-            <a href="/how-to-use-named-groups-in-regular-expression.html">How to use named groups in Regular Expression</a>
+            <a href="/small-integer-caching-in-python.html">Small integer caching in Python</a>
           </h1>
 <footer class="post-info">
-  <abbr class="published" title="2021-03-21T21:00:00+01:00">
-    Published <span class="is-info">Sun 21 March 2021</span>
+  <abbr class="published" title="2021-03-28T19:00:00+02:00">
+    Published <span class="is-info">Sun 28 March 2021</span>
     in <a href="/category/python.html">Python</a>
   </abbr>
 
@@ -59,48 +59,53 @@
       <em>by           <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
 </em>
       <span class="tag is-small is-rounded">
-        <a href="/tag/regex.html">Regex</a>
+        <a href="/tag/integer.html">Integer</a>
       </span>
     </p>
   
 </footer>          <div class="section">
-              <p>A regular expression can have named groups. This property helps us to retrieve the groups easily with <code>match()</code>.</p>
-<h1>Named Groups</h1>
-<p><code>?P&lt;name&gt;pattern</code></p>
-<p>The pattern, if matched, is then named as <code>name</code>. For example, if we want to extract the language and level from the text <code>erman C1\nEnglish B2</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;German C1</span><span class="se">\n</span><span class="s2">English B2&quot;</span>
-
-<span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;(?P&lt;lang&gt;\w+)\W+(?P&lt;level&gt;\w+)&quot;</span><span class="p">)</span>
-
-
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Language: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;lang&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">, Level: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="c1"># Language: German, Level: C1</span>
-<span class="c1"># Language: English, Level: B2</span>
+              <h1>Version</h1>
+<div class="highlight"><pre><span></span><code><span class="err">- Python 3.8.0</span>
 </code></pre></div>
 
 
-<p>By doing so, the level and the language can be print in a flexible manner.</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span> 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">&quot;lang&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<p>In Python, we can use <code>is</code> to check if two objects share the same memory address, that is, the two object have the same output of <code>id</code> and don't overlap in time. Here are two examples. </p>
+<p>In the second example, when we use <code>id</code> on an object, the object is immediately detroyed after the value is returned. But when we use <code>is</code> to compare the objects, <code>(a*2)</code> is kept in the memory for the comparision. So when <code>(a+a)</code> being created, its memory address is different.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example 1</span>
+
+<span class="n">s1</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+
+<span class="n">s1</span> <span class="ow">is</span> <span class="n">s2</span>
+<span class="c1"># True </span>
+
+<span class="c1"># example 2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="c1"># the ids are the same</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+<span class="c1"># (4541737184, 4541737184)</span>
+
+<span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+<span class="c1"># False</span>
 </code></pre></div>
 
 
-<p>Also, the named groups can fill a dictionary by <code>groupdict()</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">regex</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="c1"># convert the match into a dict</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="c1"># {&#39;lang&#39;: &#39;German&#39;, &#39;level&#39;: &#39;C1&#39;}</span>
-<span class="c1"># {&#39;lang&#39;: &#39;English&#39;, &#39;level&#39;: &#39;B2&#39;}</span>
+<p>However, if we set <code>a</code> to 1, the result is <code>True.</code>. The reason is that small integers in <code>[-5, 256]</code> are cached in Python. Namely, integers in this range share the same memory address even if they are assigned to different variables. In this example, <code>(a*2)</code> and <code>(a+a)</code> are both 4 and hence the result is <code>True</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example 3</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+<span class="c1"># True</span>
 </code></pre></div>
 
 
-<h1>Reference</h1>
+<p>References</p>
 <ol>
-<li><a href="https://docs.python.org/3/library/re.html#re.Match.groupdict">https://docs.python.org/3/library/re.html#re.Match.groupdict</a></li>
+<li><a href="https://docs.python.org/3.8/c-api/long.html#c.PyLong_FromLong">https://docs.python.org/3.8/c-api/long.html#c.PyLong_FromLong</a></li>
+<li><a href="https://github.com/satwikkansal/wtfpython#-is-not--is-not-is-not-">https://github.com/satwikkansal/wtfpython#-is-not--is-not-is-not-</a></li>
+<li><a href="https://stackoverflow.com/questions/15171695/whats-with-the-integer-cache-maintained-by-the-interpreter">https://stackoverflow.com/questions/15171695/whats-with-the-integer-cache-maintained-by-the-interpreter</a></li>
+<li><a href="https://stackoverflow.com/questions/50893267/how-can-two-python-objects-have-same-id-but-is-operator-returns-false">https://stackoverflow.com/questions/50893267/how-can-two-python-objects-have-same-id-but-is-operator-returns-false</a></li>
 </ol>
           </div>
         </article>
@@ -108,6 +113,17 @@
   <div class="is-hidden-print">
     <h2 class="subtitle">Other articles</h2>
     <div class="columns is-multiline">
+        <div class="column is-half-tablet is-one-third-desktop">
+          <div class="card is-fullwidth is-fullheight">
+            <div class="card-content">
+              <a href="/how-to-use-named-groups-in-regular-expression.html">
+                <h3 class="title is-5">How to use named groups in Regular Expression</h3>
+                <div class="heading subtitle">Sun 21 March 2021</div>
+                <div><p>A regular expression can have named groups. This property helps us to retrieve the groups easily with match()....<br /></p></div>
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="column is-half-tablet is-one-third-desktop">
           <div class="card is-fullwidth is-fullheight">
             <div class="card-content">
