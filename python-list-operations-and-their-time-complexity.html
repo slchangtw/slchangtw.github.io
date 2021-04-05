@@ -3,11 +3,20 @@
 <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width">
-  <title>Recently I learned - Python</title>
+  <title>Python list operations and their time complexity</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <link rel="stylesheet" href="/theme/css/main.3dad1b7a.css">
   <style media="print">.is-hidden-print{display:none !important}</style>
+<meta property="og:title" content="Recently I learned - Python list operations and their time complexity">
+  <meta property="og:description" content="Version - Python 3.8.0 In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. The Python...">
+<meta property="og:url" content="/python-list-operations-and-their-time-complexity.html">
+<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="Recently I learned">
+<meta property="og:type" content="article">
+  <meta property="article:published_time" content="2021-04-05T10:00:00+02:00">
+    <meta property="article:tag" content="Data Structure">
+  <meta property="article:section" content="Python">
 </head>
 
 <body id="index" class="home">
@@ -44,11 +53,11 @@
 <div class="container">
   <div class="section columns">
     <div class="column is-three-quarters-desktop is-two-thirds-tablet">
-      <aside id="featured" class="body">
-        <article>
-          <h1 class="title">
-            <a href="/python-list-operations-and-their-time-complexity.html">Python list operations and their time complexity</a>
-          </h1>
+<section id="content" class="body">
+  <article>
+    <h1 class="title">
+      <a href="/python-list-operations-and-their-time-complexity.html" rel="bookmark"
+         title="Permalink to Python list operations and their time complexity">Python list operations and their time complexity</a></h1>
 <footer class="post-info">
   <abbr class="published" title="2021-04-05T10:00:00+02:00">
     Published <span class="is-info">Mon 05 April 2021</span>
@@ -63,8 +72,7 @@
       </span>
     </p>
   
-</footer>          <div class="section">
-              <h1>Version</h1>
+</footer>    <div class="section"><h1>Version</h1>
 <div class="highlight"><pre><span></span><code><span class="err">- Python 3.8.0</span>
 </code></pre></div>
 
@@ -153,81 +161,14 @@
 </table>
 <p>References:<br>
 1. <a href="https://www.amazon.com/-/es/Gabriele-Lanaro/dp/1787282899/ref=pd_sbs_2?pd_rd_w=tkJGL&amp;pf_rd_p=651d64d1-3c73-45b6-ae09-e545600e3a22&amp;pf_rd_r=JE306ZS39CSVNVGQM7DG&amp;pd_rd_r=3eb228fe-946d-4ed7-95f7-794249b6c4d1&amp;pd_rd_wg=hfXjp&amp;pd_rd_i=1787282899&amp;psc=1">Python High Performance: Build high-performing, concurrent, and distributed applications</a><br>
-2. <a href="https://wiki.python.org/moin/TimeComplexity">https://wiki.python.org/moin/TimeComplexity</a></p>
-          </div>
-        </article>
-      </aside>
-  <div class="is-hidden-print">
-    <h2 class="subtitle">Other articles</h2>
-    <div class="columns is-multiline">
-        <div class="column is-half-tablet is-one-third-desktop">
-          <div class="card is-fullwidth is-fullheight">
-            <div class="card-content">
-              <a href="/small-integer-caching-in-python.html">
-                <h3 class="title is-5">Small integer caching in Python</h3>
-                <div class="heading subtitle">Sun 28 March 2021</div>
-                <div><p>Version - Python 3.8.0 In Python, we can use is to check if two objects share the same memory address, that...<br /></p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="column is-half-tablet is-one-third-desktop">
-          <div class="card is-fullwidth is-fullheight">
-            <div class="card-content">
-              <a href="/how-to-use-named-groups-in-regular-expression.html">
-                <h3 class="title is-5">How to use named groups in Regular Expression</h3>
-                <div class="heading subtitle">Sun 21 March 2021</div>
-                <div><p>A regular expression can have named groups. This property helps us to retrieve the groups easily with match()....<br /></p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="column is-half-tablet is-one-third-desktop">
-          <div class="card is-fullwidth is-fullheight">
-            <div class="card-content">
-              <a href="/how-to-use-assertions-in-regular-expression.html">
-                <h3 class="title is-5">How to use assertions in Regular Expression</h3>
-                <div class="heading subtitle">Sun 14 March 2021</div>
-                <div><p>An assertion in Regular Expression returns the result without consuming up the characters in the string. That...<br /></p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="column is-half-tablet is-one-third-desktop">
-          <div class="card is-fullwidth is-fullheight">
-            <div class="card-content">
-              <a href="/how-to-use-pelican-on-github-page.html">
-                <h3 class="title is-5">How to use Pelican on Github Page</h3>
-                <div class="heading subtitle">Mon 01 March 2021</div>
-                <div><p>This post shows how to set up a blog with Pelican and Github Page</p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="column is-half-tablet is-one-third-desktop">
-          <div class="card is-fullwidth is-fullheight">
-            <div class="card-content">
-              <a href="/connect-python-with-mysql-docker-container.html">
-                <h3 class="title is-5">Connect Python with MySQL Docker Container</h3>
-                <div class="heading subtitle">Fri 27 December 2019</div>
-                <div><p>This post demonstrates how to connect Python with MySQL (8.0) in Docker container using mysql-connector-python.</p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-    </div>
-<nav class="pagination is-centered">
-    <a class="pagination-previous" href="#" disabled>
-      Previous
-    </a>
-    <a class="pagination-next" href="#" disabled>
-      Next page
-    </a>
-  <ul class="pagination-list">
-    <li>Page 1 / 1</li>
-  </ul>
-</nav>
-<br>  </div>
+2. <a href="https://wiki.python.org/moin/TimeComplexity">https://wiki.python.org/moin/TimeComplexity</a></p></div>
+
+  </article>
+</section>
+
+<script type="application/ld+json">
+  {"articleSection": "Python", "author": {"@type": "Person", "name": "Shun-Lung Chang"}, "datePublished": "2021-04-05T10:00:00+02:00", "headline": "Python list operations and their time complexity", "mainEntityOfPage": {"@type": "WebPage", "@id": "/python-list-operations-and-their-time-complexity.html"}, "@context": "http://schema.org", "@type": "BlogPosting", "description": "Version - Python 3.8.0 In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. The Python list object can be seen as a container having a series of memory locations, and each location \u2026"}
+</script>
     </div>
 
     <div class="column is-one-quarter-desktop is-one-third-tablet is-hidden-print">

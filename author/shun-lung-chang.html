@@ -47,11 +47,11 @@
       <aside id="featured" class="body">
         <article>
           <h1 class="title">
-            <a href="/small-integer-caching-in-python.html">Small integer caching in Python</a>
+            <a href="/python-list-operations-and-their-time-complexity.html">Python list operations and their time complexity</a>
           </h1>
 <footer class="post-info">
-  <abbr class="published" title="2021-03-28T19:00:00+02:00">
-    Published <span class="is-info">Sun 28 March 2021</span>
+  <abbr class="published" title="2021-04-05T10:00:00+02:00">
+    Published <span class="is-info">Mon 05 April 2021</span>
     in <a href="/category/python.html">Python</a>
   </abbr>
 
@@ -59,7 +59,7 @@
       <em>by           <a class="url fn" href="/author/shun-lung-chang.html">Shun-Lung Chang</a>
 </em>
       <span class="tag is-small is-rounded">
-        <a href="/tag/integer.html">Integer</a>
+        <a href="/tag/data-structure.html">Data Structure</a>
       </span>
     </p>
   
@@ -69,50 +69,108 @@
 </code></pre></div>
 
 
-<p>In Python, we can use <code>is</code> to check if two objects share the same memory address, that is, the two object have the same output of <code>id</code> and don't overlap in time. Here are two examples. </p>
-<p>In the second example, when we use <code>id</code> on an object, the object is immediately detroyed after the value is returned. But when we use <code>is</code> to compare the objects, <code>(a*2)</code> is kept in the memory for the comparision. So when <code>(a+a)</code> being created, its memory address is different.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># example 1</span>
+<p>In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. </p>
+<p>The Python list object can be seen as a container having a series of memory locations, and each location has a reference to another Python object. The list outperforms in accessing, modifying, and appending. Accessing and modifying an element has time complexity <code>O(1)</code>. While appending an new element at the end may trigger memory reallocation, which means the list need more space to accomodate the new element, the time complexity is averagely <code>O(1)</code>. It is the same case if we use <code>list.pop()</code> to delete the last element.</p>
+<p>Despite of the fast operations, if we want to append or delete the first element, namely <code>list.insert(0, new element)or list.pop(0)</code>, it takes <code>O(N)</code> time since the memory of the remaining list needs to be shifted. </p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>list[k]</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>list[k] = new_value</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>list.append(new_value)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>list.pop()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>list.pop(0)</td>
+<td>O(N)</td>
+</tr>
+<tr>
+<td>list.insert(0, new_value)</td>
+<td>O(N)</td>
+</tr>
+</tbody>
+</table>
+<p>If we need many operations of insertion and removal of the first element or the last element, the <code>collections.deque</code> class is a more favorable choice. The <strong>double-ended queue</strong> is designed to fastly put and remove the first element and the last element. The operations take <code>O(1)</code> time.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">import</span> <span class="nn">timeit</span>
 
-<span class="n">s1</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+<span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">deque_l</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 
-<span class="n">s1</span> <span class="ow">is</span> <span class="n">s2</span>
-<span class="c1"># True </span>
-
-<span class="c1"># example 2</span>
-<span class="n">a</span> <span class="o">=</span> <span class="mi">150</span>
-
-<span class="c1"># the ids are the same</span>
-<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
-<span class="c1"># (4541737184, 4541737184)</span>
-
-<span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
-<span class="c1"># False</span>
+<span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">l</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">number</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># 0.015058</span>
+<span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">deque_l</span><span class="o">.</span><span class="n">popleft</span><span class="p">(),</span> <span class="n">number</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># 0.0020126</span>
 </code></pre></div>
 
 
-<p>However, if we set <code>a</code> to 1, the result is <code>True.</code>. The reason is that small integers in <code>[-5, 256]</code> are cached in Python. Namely, integers in this range share the same memory address even if they are assigned to different variables. In this example, <code>(a*2)</code> and <code>(a+a)</code> are both 4 and hence the result is <code>True</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># example 3</span>
-<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
-<span class="c1"># True</span>
-</code></pre></div>
-
-
-<p>References</p>
-<ol>
-<li><a href="https://docs.python.org/3.8/c-api/long.html#c.PyLong_FromLong">https://docs.python.org/3.8/c-api/long.html#c.PyLong_FromLong</a></li>
-<li><a href="https://github.com/satwikkansal/wtfpython#-is-not--is-not-is-not-">https://github.com/satwikkansal/wtfpython#-is-not--is-not-is-not-</a></li>
-<li><a href="https://stackoverflow.com/questions/15171695/whats-with-the-integer-cache-maintained-by-the-interpreter">https://stackoverflow.com/questions/15171695/whats-with-the-integer-cache-maintained-by-the-interpreter</a></li>
-<li><a href="https://stackoverflow.com/questions/50893267/how-can-two-python-objects-have-same-id-but-is-operator-returns-false">https://stackoverflow.com/questions/50893267/how-can-two-python-objects-have-same-id-but-is-operator-returns-false</a></li>
-</ol>
+<p>But the <code>collections.deque</code> cannot replace the Python list. In CPython, <code>collections.deque</code> is implemented by a doubly-linked list, and hence accessing a random element, especially a middle, can take <code>O(N)</code> time. </p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>deque.pop()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>deque.popleft()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>deque.append(new_value)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>deque.appendleft(new_value)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>deque[int(N / 2)]</td>
+<td>O(N)</td>
+</tr>
+</tbody>
+</table>
+<p>References:<br>
+1. <a href="https://www.amazon.com/-/es/Gabriele-Lanaro/dp/1787282899/ref=pd_sbs_2?pd_rd_w=tkJGL&amp;pf_rd_p=651d64d1-3c73-45b6-ae09-e545600e3a22&amp;pf_rd_r=JE306ZS39CSVNVGQM7DG&amp;pd_rd_r=3eb228fe-946d-4ed7-95f7-794249b6c4d1&amp;pd_rd_wg=hfXjp&amp;pd_rd_i=1787282899&amp;psc=1">Python High Performance: Build high-performing, concurrent, and distributed applications</a><br>
+2. <a href="https://wiki.python.org/moin/TimeComplexity">https://wiki.python.org/moin/TimeComplexity</a></p>
           </div>
         </article>
       </aside>
   <div class="is-hidden-print">
     <h2 class="subtitle">Other articles</h2>
     <div class="columns is-multiline">
+        <div class="column is-half-tablet is-one-third-desktop">
+          <div class="card is-fullwidth is-fullheight">
+            <div class="card-content">
+              <a href="/small-integer-caching-in-python.html">
+                <h3 class="title is-5">Small integer caching in Python</h3>
+                <div class="heading subtitle">Sun 28 March 2021</div>
+                <div><p>Version - Python 3.8.0 In Python, we can use is to check if two objects share the same memory address, that...<br /></p></div>
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="column is-half-tablet is-one-third-desktop">
           <div class="card is-fullwidth is-fullheight">
             <div class="card-content">
