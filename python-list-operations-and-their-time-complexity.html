@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/theme/css/main.3dad1b7a.css">
   <style media="print">.is-hidden-print{display:none !important}</style>
 <meta property="og:title" content="Recently I learned - Python list operations and their time complexity">
-  <meta property="og:description" content="Version - Python 3.8.0 In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. The Python...">
+  <meta property="og:description" content="Version - Python 3.8.0 In this post, we will take a look into operations of the Python list and understand their time complexity. The Python list object can be seen as a container having a series...">
 <meta property="og:url" content="/python-list-operations-and-their-time-complexity.html">
 <meta name="twitter:card" content="summary">
 <meta property="og:site_name" content="Recently I learned">
@@ -77,7 +77,7 @@
 </code></pre></div>
 
 
-<p>In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. </p>
+<p>In this post, we will take a look into operations of the Python list and understand their time complexity.</p>
 <p>The Python list object can be seen as a container having a series of memory locations, and each location has a reference to another Python object. The list outperforms in accessing, modifying, and appending. Accessing and modifying an element has time complexity <code>O(1)</code>. While appending an new element at the end may trigger memory reallocation, which means the list need more space to accomodate the new element, the time complexity is averagely <code>O(1)</code>. It is the same case if we use <code>list.pop()</code> to delete the last element.</p>
 <p>Despite of the fast operations, if we want to append or delete the first element, namely <code>list.insert(0, new element)or list.pop(0)</code>, it takes <code>O(N)</code> time since the memory of the remaining list needs to be shifted. </p>
 <table>
@@ -167,7 +167,7 @@
 </section>
 
 <script type="application/ld+json">
-  {"articleSection": "Python", "author": {"@type": "Person", "name": "Shun-Lung Chang"}, "datePublished": "2021-04-05T10:00:00+02:00", "headline": "Python list operations and their time complexity", "mainEntityOfPage": {"@type": "WebPage", "@id": "/python-list-operations-and-their-time-complexity.html"}, "@context": "http://schema.org", "@type": "BlogPosting", "description": "Version - Python 3.8.0 In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. The Python list object can be seen as a container having a series of memory locations, and each location \u2026"}
+  {"articleSection": "Python", "author": {"@type": "Person", "name": "Shun-Lung Chang"}, "datePublished": "2021-04-05T10:00:00+02:00", "headline": "Python list operations and their time complexity", "mainEntityOfPage": {"@type": "WebPage", "@id": "/python-list-operations-and-their-time-complexity.html"}, "@context": "http://schema.org", "@type": "BlogPosting", "description": "Version - Python 3.8.0 In this post, we will take a look into operations of the Python list and understand their time complexity. The Python list object can be seen as a container having a series of memory locations, and each location has a reference to another Python object \u2026"}
 </script>
     </div>
 

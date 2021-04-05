@@ -69,7 +69,7 @@
 </code></pre></div>
 
 
-<p>In this post, we will take a look into the following data structures that are implemented in Python and understand their time complexity of different operations. </p>
+<p>In this post, we will take a look into operations of the Python list and understand their time complexity.</p>
 <p>The Python list object can be seen as a container having a series of memory locations, and each location has a reference to another Python object. The list outperforms in accessing, modifying, and appending. Accessing and modifying an element has time complexity <code>O(1)</code>. While appending an new element at the end may trigger memory reallocation, which means the list need more space to accomodate the new element, the time complexity is averagely <code>O(1)</code>. It is the same case if we use <code>list.pop()</code> to delete the last element.</p>
 <p>Despite of the fast operations, if we want to append or delete the first element, namely <code>list.insert(0, new element)or list.pop(0)</code>, it takes <code>O(N)</code> time since the memory of the remaining list needs to be shifted. </p>
 <table>
