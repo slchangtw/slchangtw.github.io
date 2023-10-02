@@ -3,7 +3,7 @@
 <a href=/tags>Tags</a>
 <a href=/about>About</a></nav><main class=main><section id=single><h1 class=title>Principle of Clean Python Code - Naming, Comments, Functions</h1><div class=tip><time datetime="2023-09-28 20:42:31 +0800 +0800">Sep 28, 2023</time>
 <span class=split>·</span>
-<span>973 words</span>
+<span>979 words</span>
 <span class=split>·</span>
 <span>5 minute read</span></div><div class=content><p>Writing clean code is a fundamental goal to enhance code readability, comprehension, and maintainability. It is considered a best practice to adhere to clean code principles when developing in Python. In this article, we will explore key principles of clean Python code, focusing on naming conventions, commenting practices, and function design.</p><h1 id=naming>Naming <a href=#naming class=anchor>🔗</a></h1><p><a href=https://peps.python.org/pep-0008/#naming-conventions target=_blank rel=noopener>PEP8</a> has shown comprehensive naming conventions for Python code. Here are some key points:</p><ol><li>variable names should be lowercase, with words separated by underscores. But, if the variable is a global variable, it should be all uppercase and declared at the top of the file</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> random
 </span></span><span style=display:flex><span>
@@ -40,12 +40,20 @@
 </span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>english_score <span style=color:#f92672>=</span> english_score
 </span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>math_score <span style=color:#f92672>=</span> math_score
 </span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_scores</span>(students: list[Student]) <span style=color:#f92672>-&gt;</span> float:
 </span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Display the average scores of students in descending order.&#34;&#34;&#34;</span>
-</span></span><span style=display:flex><span>    students_ranking <span style=color:#f92672>=</span> sorted(students, key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> student: (student<span style=color:#f92672>.</span>english_score <span style=color:#f92672>+</span> student<span style=color:#f92672>.</span>math_score) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>, reverse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>    students_ranking <span style=color:#f92672>=</span> sorted(
+</span></span><span style=display:flex><span>        students,
+</span></span><span style=display:flex><span>        key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> student: (student<span style=color:#f92672>.</span>english_score <span style=color:#f92672>+</span> student<span style=color:#f92672>.</span>math_score) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>        reverse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>,
+</span></span><span style=display:flex><span>    )
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> student <span style=color:#f92672>in</span> students_ranking:
-</span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Student Name: </span><span style=color:#e6db74>{</span>student<span style=color:#f92672>.</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>, Average score: </span><span style=color:#e6db74>{</span>(student<span style=color:#f92672>.</span>english_score <span style=color:#f92672>+</span> student<span style=color:#f92672>.</span>math_score) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
+</span></span><span style=display:flex><span>        print(
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Student Name: </span><span style=color:#e6db74>{</span>student<span style=color:#f92672>.</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>, Average score: </span><span style=color:#e6db74>{</span>(student<span style=color:#f92672>.</span>english_score <span style=color:#f92672>+</span> student<span style=color:#f92672>.</span>math_score) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span><span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>students <span style=color:#f92672>=</span> [Student(<span style=color:#e6db74>&#34;Sara&#34;</span>, <span style=color:#ae81ff>80</span>, <span style=color:#ae81ff>90</span>), Student(<span style=color:#e6db74>&#34;Tom&#34;</span>, <span style=color:#ae81ff>85</span>, <span style=color:#ae81ff>70</span>)]
 </span></span><span style=display:flex><span>print_scores(students)
@@ -55,17 +63,21 @@
 </span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>english_score <span style=color:#f92672>=</span> english_score
 </span></span><span style=display:flex><span>        self<span style=color:#f92672>.</span>math_score <span style=color:#f92672>=</span> math_score
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@property</span> <span style=color:#75715e># property decorator allows us to access the method as a read-only attribute</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@property</span>  <span style=color:#75715e># property decorator allows us to access the method as a read-only attribute</span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>average_score</span>(self) <span style=color:#f92672>-&gt;</span> float:
 </span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> (self<span style=color:#f92672>.</span>english_score <span style=color:#f92672>+</span> self<span style=color:#f92672>.</span>math_score) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>
 </span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>print_scores</span>(students: list[Student]) <span style=color:#f92672>-&gt;</span> float:
 </span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;&#34;&#34;Display the average scores of students in descending order.&#34;&#34;&#34;</span>
-</span></span><span style=display:flex><span>    students_ranking <span style=color:#f92672>=</span> sorted(students, key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> student: student<span style=color:#f92672>.</span>average_score, reverse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>)
+</span></span><span style=display:flex><span>    students_ranking <span style=color:#f92672>=</span> sorted(
+</span></span><span style=display:flex><span>        students, key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> student: student<span style=color:#f92672>.</span>average_score, reverse<span style=color:#f92672>=</span><span style=color:#66d9ef>True</span>
+</span></span><span style=display:flex><span>    )
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> student <span style=color:#f92672>in</span> students_ranking:
 </span></span><span style=display:flex><span>        print(<span style=color:#e6db74>f</span><span style=color:#e6db74>&#34;Student Name: </span><span style=color:#e6db74>{</span>student<span style=color:#f92672>.</span>name<span style=color:#e6db74>}</span><span style=color:#e6db74>, Average score: </span><span style=color:#e6db74>{</span>student<span style=color:#f92672>.</span>average_score<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>)
-</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>students <span style=color:#f92672>=</span> [Student(<span style=color:#e6db74>&#34;Sara&#34;</span>, <span style=color:#ae81ff>80</span>, <span style=color:#ae81ff>90</span>), Student(<span style=color:#e6db74>&#34;Tom&#34;</span>, <span style=color:#ae81ff>85</span>, <span style=color:#ae81ff>70</span>)]
 </span></span><span style=display:flex><span>print_scores(students)
 </span></span></code></pre></div><p>As previously mentioned, incorporating type hints significantly enhances code readability. Type hints provide clear information about a function&rsquo;s input and output, making it easier for readers to understand its usage. Additionally, tools like MyPy can be employed to check for correct usage, ensuring that the code adheres to the specified types.</p><p>When creating functions, it&rsquo;s crucial to adhere to the principle of &ldquo;Separation of Concerns,&rdquo; meaning that a function should perform a single, well-defined task. Using flag variables to alter a function&rsquo;s behavior, as seen in the function <code>get_data</code> below with the <code>is_test</code> flag, can lead to issues. It&rsquo;s easy to forget to modify the flag when the function is used differently, and it makes the function&rsquo;s behavior less clear. A more effective approach is to split the function into two separate functions: one for test data and another for training data.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#75715e># bad</span>
