@@ -78,12 +78,20 @@ class Student:
         self.english_score = english_score
         self.math_score = math_score
 
+
 def print_scores(students: list[Student]) -> float:
     """Display the average scores of students in descending order."""
-    students_ranking = sorted(students, key=lambda student: (student.english_score + student.math_score) / 2, reverse=True)
+    students_ranking = sorted(
+        students,
+        key=lambda student: (student.english_score + student.math_score) / 2,
+        reverse=True,
+    )
 
     for student in students_ranking:
-        print(f"Student Name: {student.name}, Average score: {(student.english_score + student.math_score) / 2}")
+        print(
+            f"Student Name: {student.name}, Average score: {(student.english_score + student.math_score) / 2}"
+        )
+
 
 students = [Student("Sara", 80, 90), Student("Tom", 85, 70)]
 print_scores(students)
@@ -96,17 +104,21 @@ class Student:
         self.english_score = english_score
         self.math_score = math_score
 
-    @property # property decorator allows us to access the method as a read-only attribute
+    @property  # property decorator allows us to access the method as a read-only attribute
     def average_score(self) -> float:
         return (self.english_score + self.math_score) / 2
 
+
 def print_scores(students: list[Student]) -> float:
     """Display the average scores of students in descending order."""
-    students_ranking = sorted(students, key=lambda student: student.average_score, reverse=True)
+    students_ranking = sorted(
+        students, key=lambda student: student.average_score, reverse=True
+    )
 
     for student in students_ranking:
         print(f"Student Name: {student.name}, Average score: {student.average_score}")
-    
+
+
 students = [Student("Sara", 80, 90), Student("Tom", 85, 70)]
 print_scores(students)
 ```
