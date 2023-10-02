@@ -4,7 +4,7 @@ date: 2023-09-28T20:42:31+08:00
 tags: ["Python"]
 ---
 
-Writing Clean code aims to make the code easy to read, understand, and maintain. It is a good practice to follow the principle of clean code when writing Python code. In this article, I will share some principles of clean Python code in naming, commenting and functons.
+Writing clean code is a fundamental goal to enhance code readability, comprehension, and maintainability. It is considered a best practice to adhere to clean code principles when developing in Python. In this article, we will explore key principles of clean Python code, focusing on naming conventions, commenting practices, and function design.
 <!--more-->
 
 # Naming
@@ -30,14 +30,8 @@ random_number = random.randint(0, 100)
 ```python
 import random
 
-RANDOM_SEED = 42
-
 class FortuneTeller:
-    def __init__(self, seed=RANDOM_SEED):
-        self.seed = random_number
-    
     def tell_fortune(self) -> None:
-        random.seed(self.seed)
         random_number = random.randint(0, 10)
         if random_number < 5:
             print("You will have a good day!")
