@@ -1,7 +1,7 @@
 ---
 title: "Using Docker to Run Your Python Tests"
 date: 2023-10-05T09:27:00+08:00
-draft: true
+tags: ["Python", "Docker"]
 ---
 
 Have you ever come across the infamous 'It works on my machine' issue? I'm sure you have—it's a common challenge in software development. To tackle this problem, Docker containers offer a solution by allowing you to encapsulate your code and execute it in a consistent environment. As a result, Docker is widely adopted in various domains, including the automation of CI/CD pipelines. In this article, I will demonstrate how to leverage Docker to create and execute a Python test environment.
