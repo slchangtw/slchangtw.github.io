@@ -9,7 +9,7 @@ Writing clean code is a fundamental goal to enhance code readability, comprehens
 
 # Naming
 
-[PEP8](https://peps.python.org/pep-0008/#naming-conventions) has shown comprehensive naming conventions for Python code. Here are some key points:
+[PEP 8](https://peps.python.org/pep-0008/#naming-conventions) has shown comprehensive naming conventions for Python code. Here are some key points:
 
 1. variable names should be lowercase, with words separated by underscores. But, if the variable is a global variable, it should be all uppercase and declared at the top of the file
 
@@ -145,3 +145,8 @@ def get_training_data() -> str:
 ```
 
 The final principle I'd like to emphasize is "Do not reinvent the wheel." Python offers an extensive range of built-in functions and libraries. If a specific functionality isn't available natively, it's often worth searching for third-party packages to check if someone has already implemented it. However, when utilizing third-party packages, exercise caution, and ensure they are reliable and well-maintained to avoid potential issues in your code.
+
+# Learn More
+
+- [PEP 8](https://peps.python.org/pep-0008). An official Python code style guide. While you don't need to memorize the rules, you can utilize linters or formatting tools to validate your code. Nevertheless, it's beneficial to peruse the guide to understand the rationale behind the rules.
+  

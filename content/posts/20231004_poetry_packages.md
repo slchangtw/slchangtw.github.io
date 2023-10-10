@@ -1,7 +1,7 @@
 ---
 title: "Managing Project Dependencies with Poetry"
 date: 2023-10-04T10:43:32+08:00
-tags: ["Python"]
+tags: ["Python", "poetry"]
 ---
 
 Throughout the development of Python projects, incorporating third-party packages becomes essential. The conventional approach for managing project dependencies involves using a `requirements.txt` file. However, it's easy to overlook updating this file with newly installed packages using `pip freeze > requirements.txt`. Moreover, it can be challenging to tell which dependencies were installed directly or indirectly via `requirements.txt`, making it unclear which packages are genuinely essential after removing some.
@@ -93,7 +93,7 @@ $ poetry remove scikit-learn
 
 # Organizing Dependencies in Groups
 
-Poetry provides the flexibility to categorize dependencies into groups. By defining these groups, you can install packages for various purposes. For instance, you can add `pytest` to the `test` dependency group and `ipykernel` to the `dev` group using the following command. The dependencies will then appear in their respective groups within the 'pyproject.toml' file.
+Poetry provides the flexibility to categorize dependencies into groups. By defining these groups, you can install packages for various purposes. For instance, you can add `pytest` to the `test` dependency group and `ipykernel` to the `dev` group using the following command. The dependencies will then appear in their respective groups within the `pyproject.toml` file.
 
 ```bash 
 $ poetry add -G test pytest
@@ -140,3 +140,7 @@ Furthermore, you have the option to exclude one or more groups using the --witho
 ```bash
 $ poetry install --without test,dev
 ```
+
+# Learn More
+
+- [Managing dependencies](https://python-poetry.org/docs/master/managing-dependencies/). A comprehensive guide to managing group dependencies with Poetry.

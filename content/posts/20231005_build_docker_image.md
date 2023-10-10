@@ -140,3 +140,8 @@ You can execute the tests using the following command. The `--rm` flag ensures t
 ```bash
 $ docker run --rm pytest_example
 ```
+
+# Learn More
+
+- [Containerize an application](https://docs.docker.com/get-started/02_our_app/).
+- [Overview of best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
