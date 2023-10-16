@@ -1,5 +1,5 @@
 ---
-title: "Using pre-commit Hook to Ensure Code Quality"
+title: "Ensuring Code Quality with pre-commit Hooks"
 date: 2023-10-11T20:42:38+08:00
 tags: ["Python", "pre-commit", "black", "ruff"]
 ---

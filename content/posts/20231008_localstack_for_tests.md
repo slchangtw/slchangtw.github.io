@@ -1,5 +1,5 @@
 ---
-title: "Using Localstack to Test Functions that Interact with Cloud Services"
+title: "Testing Functions with Localstack for Cloud Service Interactions"
 date: 2023-10-08T15:31:49+08:00
 tags: ["Docker", "Docker-compose", "Localstack"]
 ---
@@ -200,4 +200,4 @@ $ docker-compose down # To stop the localstack service
 # Learn More
 
 - [Try Docker compose](https://docs.docker.com/compose/gettingstarted/).
-- [Integration tests (using Localstack)](https://docs.localstack.cloud/contributing/integration-tests/). This provided principles are beneficial for developing integration tests with Localstack.
+- [Integration tests (using Localstack)](https://docs.localstack.cloud/contributing/integration-tests/). The provided principles are beneficial for developing integration tests with Localstack.
