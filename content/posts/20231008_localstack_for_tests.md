@@ -1,7 +1,7 @@
 ---
 title: "Testing Functions with Localstack for Cloud Service Interactions"
 date: 2023-10-08T15:31:49+08:00
-tags: ["Docker", "Docker-compose", "Localstack"]
+tags: ["Docker", "Docker-compose", "Localstack", "Testing"]
 ---
 
 In software development, it's common to write functions that interact with cloud services. Instead of testing these functions against the actual cloud services, we can utilize Localstack to create local mock versions of these services. This approach enables us to test our functions without network dependencies and without altering the state of the real cloud services. In this post, we will explore how to use Localstack to test functions that interact with AWS DynamoDB.

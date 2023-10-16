@@ -1,8 +1,9 @@
 ---
 title: "Using Github Actions for Automated Testing"
 date: 2023-10-13T14:24:50+08:00
-draft: true
+tags: ["GitHub Actions", "Testing"]
 ---
+
 
 Testing plays a crucial role in software development. When you've completed a code module and wish to merge it into the main branch, it's essential to ensure that the code adheres to the style guidelines and functions correctly. This is where testing becomes crucial. Since testing is a repetitive task, automating the testing process can greatly reduce the time and effort required to validate the code. Therefore, in this post, I'll demonstrate how to utilize GitHub Actions for automating the testing process, which encompasses checking code formatting, linting, and running unit tests
 <!--more-->
