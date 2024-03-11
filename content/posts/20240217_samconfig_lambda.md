@@ -57,7 +57,7 @@ def lambda_handler(event, context):
 
 # Lambda template configuration
 
-The `template.yaml` file located in the root directory of the project contains the configuration used by AWS CloudFormation to set up Lambda function. The file is written in YAML format and contains the following sections:
+The `template.yaml` file located in the root directory of the project contains the configuration used by AWS CloudFormation, which is a service to set up Lambda function. The file is written in YAML format and contains the following sections:
 
 ```yaml
 # A
@@ -109,4 +109,72 @@ C. The `Resources` section contains the resources that will be created by AWS Cl
 D. The `GetCatImageFunction` resource defines the Lambda function. The `CodeUri` field specifies the directory where the Lambda function code is located. The `Handler` field specifies the name of the function that AWS Lambda will call to start execution. The `Runtime` field specifies the runtime environment for the Lambda function.
 
 # SAM configuration file
+
+A basic flow of deployment by SAM follows threes steps: 
+1. build: preparing the deployment,
+2. package: creating a `zip` file and uploading it to S3,
+3. deploy: deploying the package to AWS.
+
+If you check the documentation, you will find that for each you can specify different flags and paramerters. For example, `sam build --use-container` will build the Lambda function inside a Docker container.
+
+However, when having multiple parameters and flags, you may mess up the command and forget some of them. That's where the SAM configuration file coming to rescue. To store a set of flags for each command, you can simply replace the dash with an underscore of the flags and store them in the `samconfig.toml` file. The basic syntax of the file is as follows:
+
+```
+version = 0.1
+[environment]
+[environment.command]
+[environment.command.parameters]
+flag = parameter value
+```
+
+Here is an example of the `samconfig.toml` file for different commands and their parameters:
+
+```toml
+version = 0.1
+
+# A
+[default]
+[default.global.parameters]
+s3_bucket = "aws-lambda-deployment-test"
+s3_prefix = "get-cat-image"
+
+# B
+[default.build.parameters]
+cached = true
+parallel = true
+use_container = true
+skip_pull_image = true
+
+# C
+[default.package.parameters]
+output_template_file = "packaged.yaml"
+
+# D
+[default.deploy.parameters]
+stack_name = "get-cat-image"
+capabilities = "CAPABILITY_IAM"
+template_file = "packaged.yaml"
+confirm_changeset = true
+```
+
+Let's go through the sections of the `samconfig.toml` file:
+A. The `samconfig.toml` uses `default` as the default environment name. In future posts, we will specify different sets of flags for different environments such as testing and production. Besides, the `s3_bucket` and `s3_prefix` are the parameters used by the `package` and `deploy` commands to specify the S3 bucket and prefix for the deployment package.
+
+B. The `build` section contains the parameters for the `sam build` command. In this case, we set the `cached`, `parallel`, `use_container`, and `skip_pull_image` flags to `true`. 
+- The `cached` flag specifies whether using cache to speed up the build process. 
+- The `parallel` flag the specifies whether the functions (if there are many) can be built in parallel. 
+- The `use_container` flag specifies whether the Lambda function is built by Docker container.
+- The `skip_pull_image=true` flag specifies whether the command should skip pulling the latest Docker image for the Lambda runtime.
+
+C. The `package` section contains the parameters for the `sam package` command. In this case, we set the `output_template_file` flag to `packaged.yaml`, and `output_template_file` flag specifies the name of the output template file.
+
+D. The `deploy` section contains the parameters for the `sam deploy` command. In this case, we set the `stack_name`, `capabilities`, `template_file`, and `confirm_changeset` flags. 
+- The `stack_name` flag specifies the name of the CloudFormation stack. 
+- The `capabilities` flag specifies the capabilities that must be specified when the stack is created. 
+- The `template_file` flag specifies the name of the template file, which is the output of the `package` command.
+- The `confirm_changeset` flag specifies whether to confirm the changeset before executing the deployment. If set to `true`, the command will prompt you to confirm the changeset before executing the deployment.
+
+# Deploy the Lambda function
+
+
 
